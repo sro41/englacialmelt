@@ -1,0 +1,63 @@
+---
+title: "Seasonal/Annual Surface Temperatures (GrIS)"
+author: "Shayne O'Brien"
+date: "January 28, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+The object of this item is to create Tables and Time Series for each year and each season for the PROMICE AWSs between 2009 and 2018.
+
+```{r,message=FALSE, error=FALSE}
+library(tidyr)
+library(dplyr)
+```
+
+#K - Transect
+
+#Read in Data
+```{r}
+kan_u_df <- read.table(header = T, "Kan_U_day.txt")
+kan_m_df <- read.table(header = T, "Kan_M_day.txt")
+kan_l_df <- read.table(header = T, "Kan_L_day2.txt")
+
+#head(kan_u_df)
+```
+##Create Target Table
+
+Create a table for only Year, Month, Day, Air temperature.
+
+Then, add a new binary column, 1 for >0C, 0 for <0C
+
+```{r}
+KAN_U <- kan_u_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+KAN_U$Melt <- as.numeric(KAN_U$AirTemperature.C. > 0)
+
+KAN_M <- kan_m_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+KAN_M$Melt <- as.numeric(KAN_M$AirTemperature.C. > 0)
+
+KAN_L <- kan_l_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+KAN_L$Melt <- as.numeric(KAN_L$AirTemperature.C. > 0)
+  
+head(KAN_L)
+  
+
+```
+##Aggragate columns
+```{r}
+
+```
+
+
+
+
+##Isolate Temperatures by Year
+
+##Isolate Temperatures by Season
+
+##Read in Data
