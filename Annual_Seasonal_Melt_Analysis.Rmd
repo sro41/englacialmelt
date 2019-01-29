@@ -20,8 +20,8 @@ library(ggplot2)
 
 #Read in Data
 ```{r}
-kan_u_df <- read.table(header = T, "Kan_U_day.txt", stringsAsFactors=FALSE) %>% 
-  subset(AirTemperature.C. != -999)
+kan_u_df <- read.table(header = T, "Kan_U_day.txt")
+  #subset(AirTemperature.C. != -999)
 kan_m_df <- read.table(header = T, "Kan_M_day.txt")
 kan_l_df <- read.table(header = T, "Kan_L_day2.txt")
 
@@ -34,9 +34,8 @@ Create a table for only Year, Month, Day, Air temperature.
 Then, add a new binary column, 1 for >0C, 0 for <0C
 
 ```{r}
-
 KAN_U <- kan_u_df %>% 
-  select(Year, MonthOfYear, AirTemperature.C) %>% 
+  select(Year, MonthOfYear, AirTemperature.C.) 
   KAN_U$Melt <- as.numeric(KAN_U$AirTemperature.C. > 0)
   
   
