@@ -7,45 +7,59 @@ output:
     toc: true
     toc_float: true
     theme: united
-    toc_depth: 2
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+#Objective
 The object of this item is to create Tables and Time Series for each year and each season for the PROMICE AWSs between 2009 and 2018.
 
-```{r,message=FALSE, error=FALSE}
+The following packages are needed to reproduce these results
+
+```{r,message=FALSE, error=FALSE, echo = FALSE}
 library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(DT)
+library(leaflet)
 ```
+#Interactive Map
+Mouse over the markers to locate each station examined in the study
+```{r}
+locations <- read.csv(header = T, "PROMICE Stations.csv")
+
+leaflet(locations) %>% 
+  addTiles() %>% 
+  addMarkers(~ Long, ~ Lat, popup = ~Station_Name)
+
+```
+
 
 #K - Transect
 
-##Read in Data
-```{r}
+```{r, echo = FALSE}
 kan_u_df <- read.table(header = T, "Kan_U_day.txt") %>% 
   subset(AirTemperature.C. != -999)
-kan_m_df <- read.table(header = T, "Kan_M_day.txt")
-kan_l_df <- read.table(header = T, "Kan_L_day2.txt")
+kan_m_df <- read.table(header = T, "Kan_M_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+kan_l_df <- read.table(header = T, "Kan_L_day2.txt") %>% 
+  subset(AirTemperature.C. != -999)
 
-head(kan_u_df)
 ```
+
+```{r, echo = FALSE}
 ##Create Target Table
 
-Create a table for only Year, Month, Day, Air temperature.
+#Create a table for only Year, Month, Day, Air temperature.
 
-Then, add a new binary column, 1 for >0C, 0 for <0C
+#Then, add a new binary column, 1 for >0C, 0 for <0C
 
-```{r}
 KAN_U <- kan_u_df %>% 
   select(Year, MonthOfYear, AirTemperature.C.) 
   KAN_U$Melt <- as.numeric(KAN_U$AirTemperature.C. > 0)
   
-  
-
 KAN_M <- kan_m_df %>% 
   select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
   KAN_M$Melt <- as.numeric(KAN_M$AirTemperature.C. > 0)
@@ -54,12 +68,14 @@ KAN_L <- kan_l_df %>%
   select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)  
   KAN_L$Melt <- as.numeric(KAN_L$AirTemperature.C. > 0)
   
-head(KAN_U)
+#head(KAN_U)
   
 
 ```
-##Create Monthly and Annual Tables
-```{r}
+##Monthly and Annual Tables
+
+###KAN U  
+```{r, echo=FALSE}
 kan_u_season <- KAN_U %>%
   rename(Month = MonthOfYear) %>% 
   mutate(Year = as.numeric(Year)) %>%
@@ -92,29 +108,122 @@ datatable(
 ##c(Melt,Year(2009)))summarise(KAN_U, sum = sum(Melt))
 #summarise(KAN_U, "2009" = sum(
 ```
+### KAN M  
 
+```{r, echo = FALSE}
+kan_m_season <- KAN_M %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
 
+kan_m_annual <- KAN_M %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  kan_m_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  kan_m_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+```
+### KAN L  
 
+```{r, echo=FALSE}
+kan_l_season <- KAN_L %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
 
-##Isolate Temperatures by Year
+kan_l_annual <- KAN_L %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  kan_l_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  kan_l_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+```
 
-##Isolate Temperatures by Season
+## Surface Temperature Timeseries
 
-##Plot
-```{r fig.height=10, fig.width=12}
+### KAN U   
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
 kan_u_plot <- kan_u_df
 kan_u_plot$Date <- as.Date(with(kan_u_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
    
    
 ggplot(kan_u_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
-  facet_wrap(~Year,scales = "fixed", ncol = 3)+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
   xlab("Degrees C")+
   ylab("Day of Year")
   
   
 
   
+  
+
+```
+
+### KAN M  
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+kan_m_plot <- kan_m_df
+#kan_m_plot$Date <- as.Date(with(kan_m_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(kan_m_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
+  xlab("Degrees C")+
+  ylab("Day of Year")
+  
+  
+
+```
+
+### KAN L  
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+kan_l_plot <- kan_l_df
+#kan_l_plot$Date <- as.Date(with(kan_u_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(kan_l_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
+  xlab("Degrees C")+
+  ylab("Day of Year")
   
 
 ```
