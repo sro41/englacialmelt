@@ -359,8 +359,8 @@ nuk_k_plot <- nuk_k_df
 ggplot(nuk_k_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
   
@@ -377,8 +377,8 @@ nuk_l_plot <- nuk_l_df
 ggplot(nuk_l_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
 ```
@@ -393,8 +393,8 @@ nuk_u_plot <- nuk_u_df
 ggplot(nuk_u_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
 ```
 
@@ -579,8 +579,8 @@ nuk_k_plot <- nuk_k_df
 ggplot(nuk_k_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
   
@@ -597,8 +597,8 @@ qas_l_plot <- qas_l_df
 ggplot(qas_l_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
 ```
@@ -613,8 +613,8 @@ qas_m_plot <- qas_m_df
 ggplot(qas_m_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
 ```
 
@@ -628,8 +628,8 @@ qas_u_plot <- qas_l_df
 ggplot(qas_l_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
 ```
 
@@ -773,8 +773,8 @@ mit_plot <- mit_df
 ggplot(mit_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
   
@@ -791,8 +791,8 @@ tas_a_plot <- tas_a_df
 ggplot(tas_a_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
 ```
@@ -807,8 +807,8 @@ tas_l_plot <- tas_l_df
 ggplot(tas_l_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
 ```
 
@@ -914,8 +914,8 @@ upe_l_plot <- upe_l_df
 ggplot(upe_l_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
   
@@ -932,8 +932,8 @@ upe_u_plot <- upe_u_df
 ggplot(upe_u_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
 ```
@@ -1040,8 +1040,8 @@ thu_l_plot <- thu_l_df
 ggplot(thu_l_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
   
   
   
@@ -1058,8 +1058,330 @@ thu_u_plot <- thu_u_df
 ggplot(thu_u_plot, aes(DayOfYear, AirTemperature.C.))+
   geom_line()+
   facet_wrap(~Year,scales = "fixed", ncol = 2)+
-  xlab("Degrees C")+
-  ylab("Day of Year")
+  xlab("Day of Year")+
+  ylab("Degrees C")
+  
+  
+```
+
+#Kronprins Christian Land Transect
+
+```{r, echo = FALSE}
+kpc_l_df <- read.table(header = T, "KPC_L_day.txt") %>%  
+  subset(AirTemperature.C. != -999)
+kpc_u_df <- read.table(header = T, "KPC_U_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+
+```
+
+```{r, echo = FALSE}
+##Create Target Table
+#Create a table for only Year, Month, Day, Air temperature.
+#Then, add a new binary column, 1 for >0C, 0 for <0C
+KPC_L <- kpc_l_df %>% 
+  select(Year, MonthOfYear, AirTemperature.C.) 
+  KPC_L$Melt <- as.numeric(KPC_L$AirTemperature.C. > 0)
+  
+KPC_U <- kpc_u_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+  KPC_U$Melt <- as.numeric(KPC_U$AirTemperature.C. > 0)
+  
+```
+##Monthly and Annual Tables
+
+###KPC L 
+```{r, echo=FALSE}
+kpc_l_season <- KPC_L %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+kpc_l_annual <- KPC_L %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  kpc_l_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  kpc_l_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+##c(Melt,Year(2009)))summarise(KAN_U, sum = sum(Melt))
+#summarise(KAN_U, "2009" = sum(
+```
+
+### KPC U  
+
+```{r, echo = FALSE}
+kpc_u_season <- KPC_U %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+kpc_u_annual <- KPC_U %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  kpc_u_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  kpc_u_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+```
+
+## Surface Temperature Timeseries
+
+### KPC L   
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+kpc_l_plot <- kpc_l_df
+#nuk_k_plot$Date <- as.Date(with(nuk_k_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(kpc_l_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
+  xlab("Day of Year")+
+  ylab("Degrees C")
+  
+  
+  
+  
+```
+
+### KPC U  
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+kpc_u_plot <- kpc_u_df
+#kan_m_plot$Date <- as.Date(with(kan_m_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(kpc_u_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
+  xlab("Day of Year")+
+  ylab("Degrees C")
+```  
+  
+#SCO Transect
+
+```{r, echo = FALSE}
+sco_l_df <- read.table(header = T, "SCO_L_day.txt") %>%  
+  subset(AirTemperature.C. != -999)
+sco_u_df <- read.table(header = T, "SCO_U_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+
+```
+
+```{r, echo = FALSE}
+##Create Target Table
+#Create a table for only Year, Month, Day, Air temperature.
+#Then, add a new binary column, 1 for >0C, 0 for <0C
+SCO_L <- sco_l_df %>% 
+  select(Year, MonthOfYear, AirTemperature.C.) 
+  SCO_L$Melt <- as.numeric(SCO_L$AirTemperature.C. > 0)
+  
+SCO_U <- sco_u_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+  SCO_U$Melt <- as.numeric(SCO_U$AirTemperature.C. > 0)
+  
+```
+##Monthly and Annual Tables
+
+###SCO L 
+```{r, echo=FALSE}
+sco_l_season <- SCO_L %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+sco_l_annual <- SCO_L %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  sco_l_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  sco_l_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+##c(Melt,Year(2009)))summarise(KAN_U, sum = sum(Melt))
+#summarise(KAN_U, "2009" = sum(
+```
+
+### SCO U  
+
+```{r, echo = FALSE}
+sco_u_season <- SCO_U %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+sco_u_annual <- SCO_U %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  sco_u_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  sco_u_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+```
+
+## Surface Temperature Timeseries
+
+### SCO L   
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+sco_l_plot <- sco_l_df
+#nuk_k_plot$Date <- as.Date(with(nuk_k_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(sco_l_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
+  xlab("Day of Year")+
+  ylab("Degrees C")
+  
+  
+  
+  
+```
+
+### SCO U  
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+sco_u_plot <- sco_u_df
+#kan_m_plot$Date <- as.Date(with(kan_m_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(sco_u_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
+  xlab("Day of Year")+
+  ylab("Degrees C")
+```  
+
+#EGP
+
+```{r, echo = FALSE}
+egp_df <- read.table(header = T, "EGP_day.txt") %>%  
+  subset(AirTemperature.C. != -999)
+
+```
+
+```{r, echo = FALSE}
+##Create Target Table
+#Create a table for only Year, Month, Day, Air temperature.
+#Then, add a new binary column, 1 for >0C, 0 for <0C
+EGP <- egp_df %>% 
+  select(Year, MonthOfYear, AirTemperature.C.) 
+  EGP$Melt <- as.numeric(EGP$AirTemperature.C. > 0)
+  
+  
+```
+##Monthly and Annual Tables
+
+###EGP 
+```{r, echo=FALSE}
+egp_season <- EGP %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+egp_annual <- EGP %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  egp_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  egp_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+##c(Melt,Year(2009)))summarise(KAN_U, sum = sum(Melt))
+#summarise(KAN_U, "2009" = sum(
+```
+
+
+## Surface Temperature Timeseries
+
+### EGP   
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+egp_plot <- egp_df
+#nuk_k_plot$Date <- as.Date(with(nuk_k_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(egp_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
+  xlab("Day of Year")+
+  ylab("Degrees C")
+  
+  
   
   
 ```
