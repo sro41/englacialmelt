@@ -811,3 +811,255 @@ ggplot(tas_l_plot, aes(DayOfYear, AirTemperature.C.))+
   ylab("Day of Year")
   
 ```
+
+#Upernavik Transect
+
+```{r, echo = FALSE}
+upe_l_df <- read.table(header = T, "UPE_L_day.txt") %>%  
+  subset(AirTemperature.C. != -999)
+upe_u_df <- read.table(header = T, "UPE_U_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+
+```
+
+```{r, echo = FALSE}
+##Create Target Table
+#Create a table for only Year, Month, Day, Air temperature.
+#Then, add a new binary column, 1 for >0C, 0 for <0C
+UPE_L <- upe_l_df %>% 
+  select(Year, MonthOfYear, AirTemperature.C.) 
+  UPE_L$Melt <- as.numeric(UPE_L$AirTemperature.C. > 0)
+  
+UPE_U <- upe_u_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+  UPE_U$Melt <- as.numeric(UPE_U$AirTemperature.C. > 0)
+  
+```
+##Monthly and Annual Tables
+
+###UPE L 
+```{r, echo=FALSE}
+upe_l_season <- UPE_L %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+upe_l_annual <- UPE_L %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  upe_l_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  upe_l_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+##c(Melt,Year(2009)))summarise(KAN_U, sum = sum(Melt))
+#summarise(KAN_U, "2009" = sum(
+```
+
+### UPE U  
+
+```{r, echo = FALSE}
+upe_u_season <- UPE_U %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+upe_u_annual <- UPE_U %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  upe_u_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  upe_u_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+```
+
+## Surface Temperature Timeseries
+
+### UPE L   
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+upe_l_plot <- upe_l_df
+#nuk_k_plot$Date <- as.Date(with(nuk_k_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(upe_l_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
+  xlab("Degrees C")+
+  ylab("Day of Year")
+  
+  
+  
+  
+```
+
+### UPE U  
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+upe_u_plot <- upe_u_df
+#kan_m_plot$Date <- as.Date(with(kan_m_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(upe_u_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
+  xlab("Degrees C")+
+  ylab("Day of Year")
+  
+  
+```
+
+#Thule (Qaanaaq) Transect
+
+```{r, echo = FALSE}
+thu_l_df <- read.table(header = T, "THU_L_day.txt") %>%  
+  subset(AirTemperature.C. != -999)
+thu_u_df <- read.table(header = T, "THU_U_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+
+```
+
+```{r, echo = FALSE}
+##Create Target Table
+#Create a table for only Year, Month, Day, Air temperature.
+#Then, add a new binary column, 1 for >0C, 0 for <0C
+THU_L <- thu_l_df %>% 
+  select(Year, MonthOfYear, AirTemperature.C.) 
+  THU_L$Melt <- as.numeric(THU_L$AirTemperature.C. > 0)
+  
+THU_U <- thu_u_df %>% 
+  select(Year, MonthOfYear, DayOfMonth, AirTemperature.C.)
+  THU_U$Melt <- as.numeric(THU_U$AirTemperature.C. > 0)
+  
+```
+##Monthly and Annual Tables
+
+###THU L 
+```{r, echo=FALSE}
+thu_l_season <- THU_L %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+thu_l_annual <- THU_L %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  thu_l_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  thu_l_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+##c(Melt,Year(2009)))summarise(KAN_U, sum = sum(Melt))
+#summarise(KAN_U, "2009" = sum(
+```
+
+### THU U  
+
+```{r, echo = FALSE}
+thu_u_season <- THU_U %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+thu_u_annual <- THU_U %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
+  
+datatable(
+  thu_u_season, class = 'cell-border stripe', 
+  rownames = FALSE, 
+  colnames = c('Jan', 'Feb','Mar', 'Apr', 'May', 'Jun', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days per month with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+datatable(
+  thu_u_annual, class = 'cell-border stripe', 
+  rownames = FALSE,
+  caption = htmltools::tags$caption(
+  style = 'caption-side: bottom; text-align: center,',
+  'Table 1: ', htmltools::em('This table displays the number of days annually with a temperature of > 0deg Celsius, 2009-2018')
+  ))
+```
+
+## Surface Temperature Timeseries
+
+### THU L   
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+thu_l_plot <- thu_l_df
+#nuk_k_plot$Date <- as.Date(with(nuk_k_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(thu_l_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2, nrow = 10)+
+  xlab("Degrees C")+
+  ylab("Day of Year")
+  
+  
+  
+  
+```
+
+### THU U  
+
+```{r fig.height=10, fig.width=12, echo = FALSE}
+thu_u_plot <- thu_u_df
+#kan_m_plot$Date <- as.Date(with(kan_m_plot, paste(Year, MonthOfYear, DayOfMonth,sep="-")), "%d-%m-%Y")
+   
+   
+ggplot(thu_u_plot, aes(DayOfYear, AirTemperature.C.))+
+  geom_line()+
+  facet_wrap(~Year,scales = "fixed", ncol = 2)+
+  xlab("Degrees C")+
+  ylab("Day of Year")
+  
+  
+```
