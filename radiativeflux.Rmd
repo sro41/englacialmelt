@@ -1,0 +1,67 @@
+---
+title: "RadiativeFlux"
+author: "Shayne O'Brien"
+date: "February 22, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Objective
+  The objective of this study is to extract radiative flux numbers to compare to other phenomena.
+```{r,message=FALSE, error=FALSE, echo = FALSE}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(DT)
+library(leaflet)
+```
+
+```{r, echo = FALSE}
+kan_u_df <- read.table(header = T, "Kan_U_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+kan_m_df <- read.table(header = T, "Kan_M_day.txt") %>% 
+  subset(AirTemperature.C. != -999)
+kan_l_df <- read.table(header = T, "Kan_L_day2.txt") %>% 
+  subset(AirTemperature.C. != -999)
+```
+
+```{r, echo = FALSE}
+##Create Target Table
+#Create a table for only Year, Month, Day, Air temperature.
+#Then, add a new binary column, 1 for >0C, 0 for <0C
+KAN_U <- kan_u_df %>% 
+  select(Year, MonthOfYear, LongwaveRadiationDown.W.m2., LongwaveRadiationUp.W.m2., ShortwaveRadiationDown.W.m2., ShortwaveRadiationUp.W.m2.) 
+  KAN_U$NetLW <- as.numeric(KAN_U$LongwaveRadiationDown.W.m2. - KAN_U$LongwaveRadiationUp.W.m2.)
+  KAN_U$NetSW <- as.numeric(KAN_U$ShortwaveRadiationDown.W.m2. - KAN_U$ShortwaveRadiationUp.W.m2.)
+  head(KAN_U)
+  
+KAN_M <- kan_m_df %>% 
+  select(Year, MonthOfYear, LongwaveRadiationDown.W.m2., LongwaveRadiationUp.W.m2., ShortwaveRadiationDown.W.m2., ShortwaveRadiationUp.W.m2.) 
+  KAN_M$NetLW <- as.numeric(KAN_M$LongwaveRadiationDown.W.m2. - KAN_M$LongwaveRadiationUp.W.m2.)
+  KAN_M$NetSW <- as.numeric(KAN_M$ShortwaveRadiationDown.W.m2. - KAN_M$ShortwaveRadiationUp.W.m2.)
+
+KAN_U <- kan_u_df %>% 
+  select(Year, MonthOfYear, LongwaveRadiationDown.W.m2., LongwaveRadiationUp.W.m2., ShortwaveRadiationDown.W.m2., ShortwaveRadiationUp.W.m2.) 
+  KAN_U$NetLW <- as.numeric(KAN_U$LongwaveRadiationDown.W.m2. - KAN_U$LongwaveRadiationUp.W.m2.)
+  KAN_U$NetSW <- as.numeric(KAN_U$ShortwaveRadiationDown.W.m2. - KAN_U$ShortwaveRadiationUp.W.m2.)
+  
+  
+```
+
+##Monthly and Annual Tables
+
+###KAN U  
+```{r, echo=FALSE}
+kan_u_season <- KAN_U %>%
+  rename(Month = MonthOfYear) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year, Month) %>%
+  summarise(MeltDays = sum(Melt)) %>% 
+  spread(Month, MeltDays)
+kan_u_annual <- KAN_U %>%
+  select(Year, Melt) %>% 
+  mutate(Year = as.numeric(Year)) %>%
+  group_by(Year) %>%
+  summarise(MeltDays = sum(Melt))
