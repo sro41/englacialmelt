@@ -18,7 +18,7 @@ The object of this item is to create Tables and Time Series for each year and ea
 
 The following packages are needed to reproduce these results
 
-```{r,message=FALSE, error=FALSE, echo = FALSE}
+```{r,message=FALSE, error=FALSE}
 library(tidyr)
 library(dplyr)
 library(ggplot2)
