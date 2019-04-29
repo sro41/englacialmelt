@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 The object of this item is to create Tables and Time Series for each year and each season for the PROMICE AWSs between 2009 and 2018.
 
 
-```{r message = FALSE, error=FALSE}
+```{r, message = FALSE, error=FALSE}
 library(tidyr)
 library(dplyr)
 library(ggplot2)
